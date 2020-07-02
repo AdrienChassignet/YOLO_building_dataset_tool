@@ -1,4 +1,4 @@
-# Yolo-Annotation-Tool-New
+# Yolo-building-dataset-tool
 
 This tool is used to label your dataset, create data files and organize things.
 
