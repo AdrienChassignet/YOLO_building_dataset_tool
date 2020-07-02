@@ -1,22 +1,18 @@
 # Yolo-Annotation-Tool-New
 
-This is new yolo annotation tool which is added new features. I have posted three blogs for how to train yolov2 and v3 using our custom images.
+This tool is used to label your dataset, create data files and organize things.
 
-You can follow three steps for annotate the image to yolo.<br>
-Steps:
-```
-run main.py
-run convert.py
-run process.py
-```
+Follow these steps to prepare your dataset for YOLO:
 
-Now i have implemented the convert.py process in main.py. So you don't run the convert.py for yolo annotating.<br>
-Do steps:
-```
-run main.py
-run process.py
-```
+	- Run main.py
+		-> Enter the folder name that contains your images (relative to the Images/ folder)
+		-> Label your images and navigate through them using "<< Prev" and "Next >>" or with the keyboard 'a' and 'd'
+	- Run process.py 
+		-> python process.py --dataset 'Images/myImages' --target-path 'myDataset' --nbFolds 2
+		-> dataset is the path to your images relative to the executing file
+		-> target-path is the path were you want to store the dataset relative to the darknet folder
+		-> nbFolds argument can be changed to do a K-Folds cross-validation split of the data
 
-NOTE: If you use new annotation tool, please create classes.txt file and write all classes what you train the objects. Because i read the all classes from classes.txt.
+NOTE: Please create or update classes.txt file and write all classes that you train for. Also the 'obj.names' will be created by 'process.py' based on this txt file so please double check that it is correct for your dataset.
 
-The dataset is ready for yolo training.
+The dataset is ready for yolo training. You can now move your dataset folder to the darknet directory.
