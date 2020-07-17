@@ -36,7 +36,7 @@ The --yolo argument allows you to enable or not the pre-labeling with an existin
 
 ![GUI of the selection/labeling tool](yolo_annotation_tool.png?raw=true "YOLO annotation tool")
 
-- [Prev (A)]: Look at previous frame
+- [Prev (A)]: Look at the previous frame
 - [Save (S)]: Save both the frame and the labels (in YOLO format) in the Output folder.
 - [Next (D)]: Look at the next frame
 - [Next10 (F)]: Look at the 10th next frame
@@ -44,7 +44,7 @@ The --yolo argument allows you to enable or not the pre-labeling with an existin
 
 You can look at the list of bounding boxes on the right. You can delete one by selecting it and press [Delete] or delete all of them with [ClearAll (X)]. Bounding boxes from the pre-trained model are automatically appearing here along with the ones you manually add.
 
-TODO: save frames in Images folder and labels in Label folder or change `process.py` to look in Output folder.
+- [ ] TODO: save frames in Images folder and labels in Label folder or change `process.py` to look in Output folder.
 
 
 ### Process your dataset to make it ready for YOLO training
@@ -71,7 +71,6 @@ optional arguments:
                         split.
 ```
 	
-NOTE: Please create or update classes.txt file and write all classes that you train for. Also the 'obj.names' will be created by 'process.py' based on this txt file so please double check that it is correct for your dataset.
+**NOTE:** Please create or update classes.txt file and write all classes that you train for. Also the 'obj.names' will be created by 'process.py' based on this txt file so please double check that it is correct for your dataset.
 
 The dataset is ready for yolo training. You can now move your dataset folder to the darknet directory.
-
