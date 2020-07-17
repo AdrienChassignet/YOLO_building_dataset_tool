@@ -31,7 +31,7 @@ optional arguments:
   --weight WEIGHT       Path of the yolo weights file  
   --meta META           Path of the yolo meta file  
 ```
-The --yolo argument allows you to enable or not the pre-labeling with an existing model.  
+The `--yolo` argument allows you to enable or not the pre-labeling with an existing model.  
 **WARNING:** By default the tool looks for the darknet directory at '../darknet' please specify your own path to darknet if you want this feature.
 
 ![GUI of the selection/labeling tool](yolo_annotation_tool.png?raw=true "YOLO annotation tool")
@@ -42,14 +42,14 @@ The --yolo argument allows you to enable or not the pre-labeling with an existin
 - [Next10 (F)]: Look at the 10th next frame
 - [Pass (G)]: Go the next video in the opened folder
 
-You can look at the list of bounding boxes on the right. You can delete one by selecting it and press [Delete] or delete all of them with [ClearAll (X)]. Bounding boxes from the pre-trained model are automatically appearing here along with the ones you manually add.
+Bounding boxes from the pre-trained model are automatically appearing in the list on the right, along with the ones you manually add. You can delete one by selecting it and press [Delete] or delete all of them with [ClearAll (X)]. 
 
 - [x] TODO: ~~save frames in Images folder and labels in Label folder or~~ change `process.py` to look in Output folder.
 
 
 ### Process your dataset to make it ready for YOLO training
 
-The script `process.py` automatically create the files required by YOLO for training. Additionnally you can choose your cross-validation method. Currently you can perform holdout or kFolds.
+The script `process.py` automatically creates the files required by YOLO for training. To use it properly you must have all your frames and labels in the same folder and the path of this folder is given with the `--dataset` argument. Additionnally you can choose your cross-validation method with currently holdout or kFolds possibilities. 
 ```
 usage: process.py [-h] [--dataset [/path/to/dataset]]
                   [--target-path [/path/to/target/dir]]
