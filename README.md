@@ -31,7 +31,8 @@ optional arguments:
   --weight WEIGHT       Path of the yolo weights file  
   --meta META           Path of the yolo meta file  
 ```
-The --yolo argument allows you to enable or not the pre-labeling with an existing model.
+The --yolo argument allows you to enable or not the pre-labeling with an existing model.  
+**WARNING:** By default the tool looks for the darknet directory at '../darknet' please specify your own path to darknet if you want this feature.
 
 ![GUI of the selection/labeling tool](yolo_annotation_tool.png?raw=true "YOLO annotation tool")
 
