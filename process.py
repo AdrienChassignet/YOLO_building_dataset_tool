@@ -13,7 +13,7 @@ if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Split dataset for cross-validation')
     parser.add_argument('--dataset', nargs='?', const=1, metavar='/path/to/dataset',
-                        default=os.path.join(current_dir, 'Images/leaks'),
+                        default=os.path.join(current_dir, 'Output/leaks'),
                         help='Directory of the dataset relative to the executing directory')
     parser.add_argument('--target-path', nargs='?', const=1, metavar='/path/to/target/dir',
                         default='new_data',
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     # Copy the images and labels into the dataset folder
     copy_tree(data_dir, target_image_dir)
-    copy_tree(os.path.join('Labels', os.path.basename(target_image_dir)), target_image_dir)
+    #copy_tree(os.path.join('Labels', os.path.basename(target_image_dir)), target_image_dir)
     # Create the .names file from classes.txt
     copy('classes.txt', target_dir)
     os.rename(os.path.join(target_dir, 'classes.txt'), os.path.join(target_dir, 'obj.names'))
