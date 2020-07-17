@@ -1,7 +1,7 @@
 /*
-!/main.py
+!/label_images.py
 !/process.py
-!/selection.py
+!/selection_labeling.py
 !/.gitignore
 !/classes.txt
 !/README.md
