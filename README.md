@@ -31,19 +31,44 @@ optional arguments:
   --weight WEIGHT       Path of the yolo weights file  
   --meta META           Path of the yolo meta file  
 ```
-The --yolo argument allows to enable or not the pre-labeling with an existing model.
+The --yolo argument allows you to enable or not the pre-labeling with an existing model.
 
 ![GUI of the selection/labeling tool](yolo_annotation_tool.png?raw=true "YOLO annotation tool")
 
-When saving a frame (hit button Save or S on the keyboard) both the frame and the labels (in YOLO format) will be save in the Output folder.
+- [Prev (A)]: Look at previous frame
+- [Save (S)]: Save both the frame and the labels (in YOLO format) in the Output folder.
+- [Next (D)]: Look at the next frame
+- [Next10 (F)]: Look at the 10th next frame
+- [Pass (G)]: Go the next video in the opened folder
+
+You can look at the list of bounding boxes on the right. You can delete one by selecting it and press [Delete] or delete all of them with [ClearAll (X)]. Bounding boxes from the pre-trained model are automatically appearing here along with the ones you manually add.
+
+TODO: save frames in Images folder and labels in Label folder or change `process.py` to look in Output folder.
+
 
 ### Process your dataset to make it ready for YOLO training
 
-Run process.py 
-- python process.py --dataset 'Images/myImages' --target-path 'myDataset' --nbFolds 2
-	- dataset is the path to your images relative to the executing file
-	- target-path is the path were you want to store the dataset relative to the darknet folder
-	- nbFolds argument can be changed to do a K-Folds cross-validation split of the data
+The script `process.py` automatically create the files required by YOLO for training. Additionnally you can choose your cross-validation method. Currently you can perform holdout or kFolds.
+```
+usage: process.py [-h] [--dataset [/path/to/dataset]]
+                  [--target-path [/path/to/target/dir]]
+                  [--nbFolds [number of folds]]
+
+Split dataset for cross-validation
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset [/path/to/dataset]
+                        Directory of the dataset relative to the executing
+                        directory
+  --target-path [/path/to/target/dir]
+                        Directory where the data will reside, relative to
+                        'darknet.exe'
+  --nbFolds [number of folds]
+                        Number of folds for cross-validation. If nbFolds<=2,
+                        holdout cross-validation is performed with a 80/20
+                        split.
+```
 	
 NOTE: Please create or update classes.txt file and write all classes that you train for. Also the 'obj.names' will be created by 'process.py' based on this txt file so please double check that it is correct for your dataset.
 
