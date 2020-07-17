@@ -44,7 +44,7 @@ The --yolo argument allows you to enable or not the pre-labeling with an existin
 
 You can look at the list of bounding boxes on the right. You can delete one by selecting it and press [Delete] or delete all of them with [ClearAll (X)]. Bounding boxes from the pre-trained model are automatically appearing here along with the ones you manually add.
 
-- [x] TODO: save frames in Images folder and labels in Label folder or change `process.py` to look in Output folder.
+- [x] TODO: ~~save frames in Images folder and labels in Label folder or~~ change `process.py` to look in Output folder.
 
 
 ### Process your dataset to make it ready for YOLO training
