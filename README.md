@@ -6,7 +6,7 @@ Credit to @ManivannanMurugavel for the main.py and part of selection.py
 
 ### Label your images
 
-Run main.py
+Run label_images.py
 - Enter the folder name that contains your images (relative to the Images/ folder)
 - Label your images and navigate through them using "<< Prev" and "Next >>" or with the keyboard 'a' and 'd'
 
@@ -15,8 +15,27 @@ Run main.py
 This tool can be used to make the frame selection and labeling task easier.
 
 With this tool you can use a pretrained YOLO model to help you to complete a dataset by looking at what would be the output of the algorithm.
+```
+usage: selection_labeling.py [-h] [--yolo] [--darknet-path DARKNET_PATH]
+                             [--config CONFIG] [--weight WEIGHT] [--meta META]
 
-![GUI of the slection/labeling tool](yolo_annotation_tool.png?raw=true "Title")
+Tool to select and label frames from videos
+
+optional arguments:  
+  -h, --help            show this help message and exit  
+  --yolo                Indicate if you want to use existing YOLO model to
+  			pre-label frames. Not enable by default  
+  --darknet-path DARKNET_PATH 
+  			Path to the darknet repo  
+  --config CONFIG       Path of the yolo config file  
+  --weight WEIGHT       Path of the yolo weights file  
+  --meta META           Path of the yolo meta file  
+```
+The --yolo argument allows to enable or not the pre-labeling with an existing model.
+
+![GUI of the selection/labeling tool](yolo_annotation_tool.png?raw=true "YOLO annotation tool")
+
+When saving a frame (hit button Save or S on the keyboard) both the frame and the labels (in YOLO format) will be save in the Output folder.
 
 ### Process your dataset to make it ready for YOLO training
 
