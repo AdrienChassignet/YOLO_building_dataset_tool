@@ -7,19 +7,12 @@ import sys
 import glob
 import random
 
+import argparse
+
 import cv2
-sys.path.append(os.path.abspath('../darknet'))
-import darknet
 from ctypes import *
 import numpy as np
 
-#netMain = None
-#metaMain = None
-#altNames = None
-
-PATH_CFG = os.path.abspath('../darknet/dataset_1000/yolov4-puddles.cfg')
-PATH_WEIGHTS = os.path.abspath('../darknet/dataset_1000/backup/fold0/yolov4-puddles_best.weights')
-PATH_META = os.path.abspath('../darknet/dataset_1000/obj0.data')
 TMP_FOLDER = './tmp/'
 
 MAIN_COLORS = ['skyblue', 'pink', 'green', 'gold', 'blue', 'cyan']
@@ -47,7 +40,7 @@ def convertBack(x, y, w, h):
     return xmin, ymin, xmax, ymax
 
 class LabelTool():
-    def __init__(self, master):
+    def __init__(self, master, args):
         # set up the main frame
         self.curimg_h = 0
         self.curimg_w = 0
@@ -73,10 +66,12 @@ class LabelTool():
         self.tkimg = None
 
         #darknet variables
-        self.metaMain = None
-        self.netMain = None
-        self.altNames = None
-        self.instantiateDarknet(PATH_CFG, PATH_WEIGHTS, PATH_META)
+        self.yolo = args.yolo
+        if self.yolo:
+            self.metaMain = None
+            self.netMain = None
+            self.altNames = None
+            self.instantiateDarknet(args.config, args.weight, args.meta)
 
         # initialize mouse state
         self.STATE = {}
@@ -243,7 +238,7 @@ class LabelTool():
                     self.bboxIdList.append(tmpId)
                     self.listbox.insert(END, '(%d, %d) -> (%d, %d) -> (%s)' %(tmp[0], tmp[1], tmp[2], tmp[3], classes[int(yolo_data[0])]))
                     self.listbox.itemconfig(len(self.bboxIdList) - 1, fg = COLORS[int(yolo_data[0])])
-        else:
+        elif self.yolo:
             detections = darknet.detect(self.netMain, self.metaMain, os.path.abspath(imagepath).encode("ascii"), debug=False)
             for detection in detections:
                 label = detection[0].decode('utf-8')
@@ -281,7 +276,7 @@ class LabelTool():
         self.STATE['click'] = 1 - self.STATE['click']
 
     def mouseMove(self, event):
-        self.disp.config(text = 'x: %d, y: %d' %(event.x, event.y))
+        self.disp.config(text = 'x: %03d, y: %03d' %(event.x, event.y))
         if self.tkimg:
             if self.hl:
                 self.mainPanel.delete(self.hl)
@@ -447,8 +442,20 @@ class LabelTool():
                 pass   
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Tool to select and label frames from videos')
+    parser.add_argument('--yolo', action='store_true', help='Indicate if you want to use existing YOLO model to pre-label frames. Not enable by default')
+    parser.add_argument('--darknet-path', default='../darknet', help='Path to the darknet repo')
+    parser.add_argument('--config', default='../darknet/dataset_1000/yolov4-puddles.cfg', help='Path of the yolo config file')
+    parser.add_argument('--weight', default='../darknet/dataset_1000/backup/fold0/yolov4-puddles_best.weights', help='Path of the yolo weights file')
+    parser.add_argument('--meta', default='../darknet/dataset_1000/obj0.data', help='Path of the yolo meta file')
+    args = parser.parse_args()
+
+    if args.yolo:
+        sys.path.append(os.path.abspath(args.darknet_path))
+        import darknet
+
     root = Tk()
-    tool = LabelTool(root)
+    tool = LabelTool(root, args)
     root.resizable(width =  True, height = True)
     root.mainloop()
     tool.clean_tmp_folder()
