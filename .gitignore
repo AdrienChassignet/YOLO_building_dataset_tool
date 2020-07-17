@@ -1,6 +1,7 @@
 /*
 !/main.py
 !/process.py
+!/selection.py
 !/.gitignore
 !/classes.txt
 !/README.md
@@ -12,3 +13,7 @@
 !/Images/
 /Images/*
 !/Images/test/
+
+!/Videos/
+/Videos/*
+!/Videos/test/
