@@ -1,5 +1,7 @@
 # Yolo-building-dataset-tool
 
+Credit to @ManivannanMurugavel for the main.py
+
 This tool is used to label your dataset, create data files and organize things.
 
 Follow these steps to prepare your dataset for YOLO:
