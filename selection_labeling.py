@@ -64,6 +64,7 @@ class LabelTool():
         self.imagename = ''
         self.labelfilename = ''
         self.tkimg = None
+        self.flip = args.flip
 
         #darknet variables
         self.yolo = args.yolo
@@ -212,6 +213,8 @@ class LabelTool():
         # load image
         imagepath = self.imageList[self.cur - 1]
         self.img = Image.open(imagepath)
+        if self.flip:
+            self.img = self.img.rotate(180)
         self.curimg_w, self.curimg_h = self.img.size
         self.tkimg = ImageTk.PhotoImage(self.img)
         self.mainPanel.config(width = max(self.tkimg.width(), 400), height = max(self.tkimg.height(), 400))
@@ -362,6 +365,8 @@ class LabelTool():
         self.cur_cls_id = classes.index(cur_cls)
 
     def store_all_frames(self, vidPath):
+        if not os.path.exists(self.tmpDir):
+            os.mkdir(self.tmpDir)
         vidName = os.path.split(os.path.splitext(vidPath)[0])[-1]
         vidcap = cv2.VideoCapture(vidPath)
         self.imageList = []
@@ -448,6 +453,7 @@ if __name__ == '__main__':
     parser.add_argument('--config', default='../darknet/dataset_1000/yolov4-puddles.cfg', help='Path of the yolo config file')
     parser.add_argument('--weight', default='../darknet/dataset_1000/backup/fold0/yolov4-puddles_best.weights', help='Path of the yolo weights file')
     parser.add_argument('--meta', default='../darknet/dataset_1000/obj0.data', help='Path of the yolo meta file')
+    parser.add_argument('--flip', action='store_true', help='Set this arg if you want to flip the images upside-down')
     args = parser.parse_args()
 
     if args.yolo:
